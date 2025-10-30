@@ -8,9 +8,12 @@ const condt = document.getElementById("conditions")
 
 async function checkWeather(city) {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
-    let data = await response.json(); 
-
-    console.log(data)
+    try {
+        if (!response.ok) {
+            throw new Error("City not found");
+        }
+            
+        let data = await response.json(); 
 
     document.getElementById("city").textContent = data.name
     document.getElementById("temp").textContent = data.main.temp;
@@ -35,6 +38,11 @@ async function checkWeather(city) {
     else if(data.weather[0].main == "Drizzle"){
         condt.src = "images/drizzle.png"
     }
+
+    document.getElementById("weather").classList.remove("hidden")
+   } catch (error) {
+        alert(error.message + ". Please try a correct city.");
+   }
 
 }
 
