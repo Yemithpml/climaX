@@ -16,9 +16,9 @@ async function checkWeather(city) {
         let data = await response.json(); 
 
     document.getElementById("city").textContent = data.name
-    document.getElementById("temp").textContent = data.main.temp;
-    document.getElementById("humidity").textContent = data.main.humidity
-    document.getElementById("wind").textContent = data.wind.speed
+    document.getElementById("temp").textContent = Math.round(data.main.temp )+ "◦C"; //rounding up temp value
+    document.getElementById("humidity").textContent = data.main.humidity + "%";
+    document.getElementById("wind").textContent = data.wind.speed + " km/h";
 
     if(data.weather[0].main == "Clouds"){
         condt.src = "images/clouds.png"
